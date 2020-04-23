@@ -17,7 +17,7 @@ router.route("/add").post((req, res) => {
   });
   newExercise
     .save()
-    .then(() => res.json("Exercise Saved"))
+    .then((dbResponse) => res.json(dbResponse))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
