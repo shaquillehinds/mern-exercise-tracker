@@ -1,5 +1,6 @@
 const express = require("express"),
   mongoose = require("mongoose"),
+  path = require("path"),
   cors = require("cors");
 
 require("dotenv").config();
@@ -23,6 +24,10 @@ connection.once("open", () => {
 
 const exercisesRouter = require("./routes/exercises");
 const usersRouter = require("./routes/users");
+
+const index = path.join(__dirname, "../build/");
+
+app.use(express.static(index));
 
 app.use("/exercises", exercisesRouter);
 app.use("/users", usersRouter);

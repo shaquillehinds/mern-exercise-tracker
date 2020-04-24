@@ -17,4 +17,16 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
+router.route("/:id").delete(async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).send("User not found");
+    }
+    res.send(deletedUser);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 module.exports = router;
