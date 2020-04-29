@@ -16,7 +16,7 @@ export default class CreateUser extends React.Component {
       username: this.state.username,
     };
     console.log(user);
-    axios.post("http://localhost:5000/users/add", user).then((response) => {
+    axios.post(`${process.env.REACT_APP_URL}/users/add`, user).then((response) => {
       console.log(response);
     });
     this.setState({
@@ -47,11 +47,7 @@ export default class CreateUser extends React.Component {
             />
           </div>
           <div className="form-group">
-            <input
-              type="submit"
-              value="Create New User"
-              className="btn btn-primary"
-            />
+            <input type="submit" value="Create New User" className="btn btn-primary" />
           </div>
         </form>
       </div>

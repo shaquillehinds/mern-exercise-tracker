@@ -13,10 +13,7 @@ const Exercise = (props) => {
         <Link className="btn btn-primary" to={`/edit/${props.exercise._id}`}>
           Edit
         </Link>{" "}
-        <button
-          className="btn btn-danger"
-          onClick={() => props.deleteExercise(props.exercise._id)}
-        >
+        <button className="btn btn-danger" onClick={() => props.deleteExercise(props.exercise._id)}>
           Delete
         </button>
       </td>
@@ -29,9 +26,7 @@ export default class ExercisesList extends React.Component {
     exercises: [],
   };
   deleteExercise = (id) => {
-    axios
-      .delete(`http://localhost:5000/exercises/${id}`)
-      .then((res) => console.log(res));
+    axios.delete(`${process.env.REACT_APP_URL}/exercises/${id}`).then((res) => console.log(res));
     this.setState({
       exercises: this.state.exercises.filter((exercise) => exercise._id !== id),
     });
@@ -40,19 +35,14 @@ export default class ExercisesList extends React.Component {
     const exercises = this.state.exercises;
     if (exercises.length > 0) {
       return exercises.map((exercise) => {
-        return (
-          <Exercise
-            exercise={exercise}
-            deleteExercise={this.deleteExercise}
-            key={exercise._id}
-          />
-        );
+        return <Exercise exercise={exercise} deleteExercise={this.deleteExercise} key={exercise._id} />;
       });
     }
   };
   componentDidMount() {
+    console.log(process.env.REACT_APP_URL);
     axios
-      .get("http://localhost:5000/exercises/")
+      .get(`${process.env.REACT_APP_URL}/exercises`)
       .then((res) => {
         const data = res.data;
         if (data.length > 0) {

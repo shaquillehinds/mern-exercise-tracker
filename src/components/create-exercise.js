@@ -44,14 +44,14 @@ export default class CreateExercise extends React.Component {
 
     console.log(exercise);
     axios
-      .post("http://localhost:5000/exercises/add", exercise)
+      .post(`${process.env.REACT_APP_URL}/exercises/add`, exercise)
       .then((response) => console.log(response));
 
     window.location = "/";
   };
 
   componentDidMount() {
-    axios.get("http://localhost:5000/users/").then((res) => {
+    axios.get(`${process.env.REACT_APP_URL}/users/`).then((res) => {
       const data = res.data;
       if (data.length > 0) {
         this.setState({
@@ -107,17 +107,10 @@ export default class CreateExercise extends React.Component {
           </div>
           <div className="form-group">
             <label>Date: </label>
-            <DatePicker
-              selected={this.state.date}
-              onChange={this.onChangeDate}
-            />
+            <DatePicker selected={this.state.date} onChange={this.onChangeDate} />
           </div>
           <div className="form-group">
-            <input
-              type="submit"
-              value="Create Exercise Log"
-              className="btn btn-primary"
-            />
+            <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
           </div>
         </form>
       </div>

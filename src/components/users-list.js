@@ -6,10 +6,7 @@ const Users = (props) => {
     <tr>
       <td>{props.user}</td>
       <td>
-        <button
-          className="btn btn-danger"
-          onClick={() => props.deleteUser(props.id)}
-        >
+        <button className="btn btn-danger" onClick={() => props.deleteUser(props.id)}>
           Delete
         </button>
       </td>
@@ -24,9 +21,7 @@ export default class UsersList extends React.Component {
 
   deleteUser = async (id) => {
     try {
-      const userDeleted = await axios.delete(
-        `http://localhost:5000/users/${id}`
-      );
+      const userDeleted = await axios.delete(`${process.env.REACT_APP_URL}/users/${id}`);
       if (userDeleted) {
         console.log(userDeleted.data);
         this.setState((prevState) => {
@@ -41,7 +36,7 @@ export default class UsersList extends React.Component {
 
   async componentDidMount() {
     try {
-      const users = await axios.get("http://localhost:5000/users/");
+      const users = await axios.get(`${process.env.REACT_APP_URL}/users/`);
       if (users.data) {
         this.setState({
           users: users.data,
@@ -66,12 +61,7 @@ export default class UsersList extends React.Component {
           <tbody>
             {this.state.users.map((user) => {
               return (
-                <Users
-                  key={user._id}
-                  id={user._id}
-                  user={user.username}
-                  deleteUser={this.deleteUser}
-                />
+                <Users key={user._id} id={user._id} user={user.username} deleteUser={this.deleteUser} />
               );
             })}
           </tbody>

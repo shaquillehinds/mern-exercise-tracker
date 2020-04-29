@@ -44,27 +44,22 @@ export default class EditExercises extends React.Component {
 
     console.log(exercise);
     axios
-      .post(
-        `http://localhost:5000/exercises/update/${this.props.match.params.id}`,
-        exercise
-      )
+      .post(`${process.env.REACT_APP_URL}/exercises/update/${this.props.match.params.id}`, exercise)
       .then((response) => console.log(response));
 
     // window.location = "/";
   };
 
   componentDidMount() {
-    axios
-      .get(`http://localhost:5000/exercises/${this.props.match.params.id}`)
-      .then((response) =>
-        this.setState({
-          username: response.data.username,
-          description: response.data.description,
-          duration: response.data.duration,
-          data: new Date(response.data.date),
-        })
-      );
-    axios.get("http://localhost:5000/users/").then((res) => {
+    axios.get(`${process.env.REACT_APP_URL}/exercises/${this.props.match.params.id}`).then((response) =>
+      this.setState({
+        username: response.data.username,
+        description: response.data.description,
+        duration: response.data.duration,
+        data: new Date(response.data.date),
+      })
+    );
+    axios.get(`${process.env.REACT_APP_URL}/users/`).then((res) => {
       const data = res.data;
       if (data.length > 0) {
         this.setState({
@@ -119,17 +114,10 @@ export default class EditExercises extends React.Component {
           </div>
           <div className="form-group">
             <label>Date: </label>
-            <DatePicker
-              selected={this.state.date}
-              onChange={this.onChangeDate}
-            />
+            <DatePicker selected={this.state.date} onChange={this.onChangeDate} />
           </div>
           <div className="form-group">
-            <input
-              type="submit"
-              value="Edit Exercise Log"
-              className="btn btn-primary"
-            />
+            <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
           </div>
         </form>
       </div>
