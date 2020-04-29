@@ -18,7 +18,7 @@ const connectDB = async () => {
     await mongoose.connect(db, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      useCreateIndex,
+      useCreateIndex: true,
     });
     console.log("MongoDB is Connected...");
   } catch (err) {
@@ -26,11 +26,11 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-connectDB;
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("MongoDB database connection established successfully");
-});
+connectDB();
+// const connection = mongoose.connection;
+// connection.once("open", () => {
+//   console.log("MongoDB database connection established successfully");
+// });
 
 const exercisesRouter = require("./routes/exercises");
 const usersRouter = require("./routes/users");
